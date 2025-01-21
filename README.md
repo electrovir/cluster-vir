@@ -46,7 +46,6 @@ const runner = runInCluster(
              * Do cleanup work in here. In this case, we're closing the HTTP server. Note that a
              * cleanup callback cannot be async.
              */
-
             server.close();
         };
     },
