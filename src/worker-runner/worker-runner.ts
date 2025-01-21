@@ -17,6 +17,7 @@ export class WorkerRunner extends ListenTarget<WorkerRunnerEvents> {
     /** The worker's current options. */
     public options: ClusterOptions;
     private cleanupCallback: WorkerCleanupCallback | undefined;
+    private alreadyCallingDestroy = false;
 
     constructor(
         private readonly workerCallback: WorkerCallback,
@@ -52,11 +53,17 @@ export class WorkerRunner extends ListenTarget<WorkerRunnerEvents> {
             }
         });
 
-        addExitCallback(() => this.cleanupWorker());
+        addExitCallback(() => this.destroy());
     }
 
-    private cleanupWorker() {
+    /** Completely cleanup `WorkerRunner`, including all of its listeners, and kill the worker. */
+    public override destroy() {
+        if (!this.alreadyCallingDestroy) {
+            this.worker.kill();
+        }
+        this.alreadyCallingDestroy = true;
         this.cleanupCallback?.();
         this.dispatch(new WorkerCleanedEvent());
+        super.destroy();
     }
 }
