@@ -1,6 +1,6 @@
 {
     "name": "cluster-vir",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "description": "Makes it easy to distribute arbitrary scripts across multiple workers.",
     "keywords": [
         "cluster",
