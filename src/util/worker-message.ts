@@ -1,4 +1,4 @@
-import type {Worker} from 'node:cluster';
+import {type Worker} from 'node:cluster';
 import {assertValidShape, defineShape, exact, isValidShape, or} from 'object-shape-tester';
 
 /**

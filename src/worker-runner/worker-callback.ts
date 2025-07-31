@@ -1,5 +1,5 @@
-import {MaybePromise} from '@augment-vir/common';
-import {Worker} from 'node:cluster';
+import {type MaybePromise} from '@augment-vir/common';
+import {type Worker} from 'node:cluster';
 
 /**
  * All params passed to {@link WorkerCallback}.

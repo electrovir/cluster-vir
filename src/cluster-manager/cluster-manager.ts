@@ -3,17 +3,21 @@ import {
     createArray,
     DeferredPromise,
     log,
+    type MaybePromise,
     PromiseQueue,
     wait,
-    type MaybePromise,
 } from '@augment-vir/common';
 import {addExitCallback} from 'catch-exit';
 import {type Serializable} from 'node:child_process';
 import cluster, {type Worker} from 'node:cluster';
 import {ListenTarget} from 'typed-event-target';
-import {ClusterOptions, combineOptions, UserClusterOptions} from '../util/cluster-options.js';
+import {
+    type ClusterOptions,
+    combineOptions,
+    type UserClusterOptions,
+} from '../util/cluster-options.js';
 import {parseWorkerMessage, sendWorkerMessage, WorkerMessageType} from '../util/worker-message.js';
-import {ClusterManagerEvents, WorkerAddedEvent, WorkerRemovedEvent} from './cluster.event.js';
+import {type ClusterManagerEvents, WorkerAddedEvent, WorkerRemovedEvent} from './cluster.event.js';
 
 /**
  * This is generated and returned by `runInCluster` on the primary process only. This gives you

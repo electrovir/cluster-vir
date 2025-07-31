@@ -1,11 +1,15 @@
 import {callAsynchronously} from '@augment-vir/common';
 import {addExitCallback} from 'catch-exit';
-import type {Worker} from 'node:cluster';
+import {type Worker} from 'node:cluster';
 import {ListenTarget} from 'typed-event-target';
-import {combineOptions, UserClusterOptions, type ClusterOptions} from '../util/cluster-options.js';
+import {
+    type ClusterOptions,
+    combineOptions,
+    type UserClusterOptions,
+} from '../util/cluster-options.js';
 import {parseWorkerMessage, sendWorkerMessage, WorkerMessageType} from '../util/worker-message.js';
-import type {WorkerCallback, WorkerCleanupCallback} from './worker-callback.js';
-import {WorkerCleanedEvent, WorkerRunnerEvents, WorkerStartedEvent} from './worker.event.js';
+import {type WorkerCallback, type WorkerCleanupCallback} from './worker-callback.js';
+import {WorkerCleanedEvent, type WorkerRunnerEvents, WorkerStartedEvent} from './worker.event.js';
 
 /**
  * This is generated and returned by `runInCluster` on the worker threads. This gives you access to

@@ -1,6 +1,6 @@
 import {
     log,
-    Logger,
+    type Logger,
     mergeDefinedProperties,
     type PartialWithUndefined,
     type SetRequiredAndNotNull,

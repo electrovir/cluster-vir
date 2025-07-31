@@ -1,7 +1,7 @@
 import cluster from 'node:cluster';
 import {ClusterManager} from '../cluster-manager/cluster-manager.js';
-import {UserClusterOptions} from '../util/cluster-options.js';
-import type {WorkerCallback} from '../worker-runner/worker-callback.js';
+import {type UserClusterOptions} from '../util/cluster-options.js';
+import {type WorkerCallback} from '../worker-runner/worker-callback.js';
 import {WorkerRunner} from '../worker-runner/worker-runner.js';
 
 /**

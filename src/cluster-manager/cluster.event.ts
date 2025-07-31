@@ -1,4 +1,4 @@
-import {Worker} from 'node:cluster';
+import {type Worker} from 'node:cluster';
 import {defineTypedCustomEvent} from 'typed-event-target';
 
 /**
