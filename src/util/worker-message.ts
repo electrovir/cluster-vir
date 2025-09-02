@@ -1,5 +1,11 @@
 import {type Worker} from 'node:cluster';
-import {assertValidShape, defineShape, exact, isValidShape, or} from 'object-shape-tester';
+import {
+    assertValidShape,
+    checkValidShape,
+    defineShape,
+    exactShape,
+    unionShape,
+} from 'object-shape-tester';
 
 /**
  * Message types sent between workers and the cluster manager.
@@ -19,16 +25,16 @@ export enum WorkerMessageType {
  * @category Internal
  */
 export const workerMessageShape = defineShape(
-    or(
+    unionShape(
         {
-            type: exact(WorkerMessageType.StartWorker),
+            type: exactShape(WorkerMessageType.StartWorker),
             data: {
                 /** The number of current workers, including the current one. */
                 spawnedWorkerCount: -1,
             },
         },
         {
-            type: exact(WorkerMessageType.WorkerStarted),
+            type: exactShape(WorkerMessageType.WorkerStarted),
         },
     ),
 );
@@ -48,7 +54,7 @@ export type WorkerMessage = typeof workerMessageShape.runtimeType;
  * @returns `undefined` if the message does not match known messages shapes.
  */
 export function parseWorkerMessage(message: unknown): WorkerMessage | undefined {
-    if (isValidShape(message, workerMessageShape)) {
+    if (checkValidShape(message, workerMessageShape)) {
         return message;
     } else {
         return undefined;
