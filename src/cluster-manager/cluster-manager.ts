@@ -34,7 +34,7 @@ export class ClusterManager extends ListenTarget<ClusterManagerEvents> {
     public workers = new Set<Worker>();
     /** Current cluster options. */
     public options: ClusterOptions;
-    private respawnQueue = new PromiseQueue();
+    protected respawnQueue = new PromiseQueue();
 
     constructor(userOptions: Readonly<UserClusterOptions>) {
         super();
@@ -53,12 +53,14 @@ export class ClusterManager extends ListenTarget<ClusterManagerEvents> {
                 /** Only respawn the worker if the current count is below the desired count. */
                 if (this.workers.size < this.options.workerCount) {
                     await this.respawnQueue.add(async () => {
-                        await wait({seconds: 1});
+                        await wait({
+                            seconds: 1,
+                        });
                         await this.spawnWorker();
                     });
                 }
             } else if (!this.workers.size && !this.options.keepClusterManagerAlive) {
-                log.faint(`All child workers have exited. Exiting primary process.`);
+                log.faint('All child workers have exited. Exiting primary process.');
                 /** There are no more workers so the primary worker might as well exit. */
                 process.exit(0);
             }
@@ -113,7 +115,11 @@ export class ClusterManager extends ListenTarget<ClusterManagerEvents> {
         });
         await workerStartedPromise.promise;
 
-        this.dispatch(new WorkerAddedEvent({detail: worker}));
+        this.dispatch(
+            new WorkerAddedEvent({
+                detail: worker,
+            }),
+        );
 
         /** Don't start the worker until listeners have had a chance to know its been added. */
         sendWorkerMessage(worker, {

@@ -14,6 +14,8 @@ const manager = runInCluster(
 
 if (check.instanceOf(manager, ClusterManager)) {
     await manager.startWorkers();
-    await wait({seconds: 1});
+    await wait({
+        seconds: 1,
+    });
     process.exit(0);
 }

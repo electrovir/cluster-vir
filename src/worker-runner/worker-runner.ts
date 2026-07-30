@@ -20,11 +20,11 @@ import {WorkerCleanedEvent, type WorkerRunnerEvents, WorkerStartedEvent} from '.
 export class WorkerRunner extends ListenTarget<WorkerRunnerEvents> {
     /** The worker's current options. */
     public options: ClusterOptions;
-    private cleanupCallback: WorkerCleanupCallback | undefined;
-    private alreadyCallingDestroy = false;
+    protected cleanupCallback: WorkerCleanupCallback | undefined;
+    protected alreadyCallingDestroy = false;
 
     constructor(
-        private readonly workerCallback: WorkerCallback,
+        protected readonly workerCallback: WorkerCallback,
         /** The worker itself. */
         public readonly worker: Worker,
         userOptions: Readonly<UserClusterOptions>,

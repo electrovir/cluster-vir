@@ -8,7 +8,9 @@ const manager = runInCluster(
             console.info('cleanup called');
         };
     },
-    {startWorkersImmediately: false},
+    {
+        startWorkersImmediately: false,
+    },
 );
 
 if (check.instanceOf(manager, ClusterManager)) {

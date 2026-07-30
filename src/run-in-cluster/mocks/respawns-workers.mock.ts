@@ -7,11 +7,16 @@ const manager = runInCluster(
     () => {
         throw new Error();
     },
-    {startWorkersImmediately: false, respawnWorkers: true},
+    {
+        startWorkersImmediately: false,
+        respawnWorkers: true,
+    },
 );
 
 if (check.instanceOf(manager, ClusterManager)) {
     await manager.startWorkers();
-    await wait({seconds: 3});
+    await wait({
+        seconds: 3,
+    });
     process.exit(0);
 }
